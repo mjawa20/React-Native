@@ -1,7 +1,24 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Home from "./screens/Home";
+import Qr from "./screens/Qr";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Button } from "react-native-elements/dist/buttons/Button";
+import Device from "./screens/Device";
 
+const Stack = createNativeStackNavigator();
 export default function App() {
-    return <Home />;
+    return (
+        <NavigationContainer>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Qr" component={Qr} />
+                <Stack.Screen
+                    name="Device"
+                    component={Device}
+                    options={{ headerShown: true, headerTitleAlign: "center" }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
