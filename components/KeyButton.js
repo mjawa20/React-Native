@@ -1,13 +1,25 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 
 const KeyButton = () => {
+    const [lock, setLock] = useState(true);
+
     return (
-        <View style={styles.lock}>
-            <Icon name="lock" type="material-community" size={70} color="#d84c4e" />
-            <Text style={styles.status}>Door Is Locked</Text>
-        </View>
+        <TouchableOpacity
+            onPress={() => setLock(lock ? false : true)}
+            style={[styles.lock, { borderColor: lock ? "#d84c4e" : "#209741" }]}
+        >
+            <Icon
+                name={lock ? "lock" : "lock-open-variant"}
+                type="material-community"
+                size={70}
+                color={lock ? "#d84c4e" : "#209741"}
+            />
+            <Text style={[styles.status, { color: lock ? "#d84c4e" : "#209741" }]}>
+                Tap to {lock ? "open" : "lock"}
+            </Text>
+        </TouchableOpacity>
     );
 };
 
@@ -20,7 +32,7 @@ const styles = StyleSheet.create({
         width: 230,
         height: 230,
         marginVertical: 50,
-        borderColor: "#d84c4e",
+
         borderWidth: 20,
         borderRadius: 200,
     },
