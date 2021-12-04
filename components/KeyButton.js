@@ -1,13 +1,33 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 
 const KeyButton = () => {
     const [lock, setLock] = useState(true);
+    const [loader, setLoader] = useState(false);
 
-    return (
+    const post = () => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ key: lock ? 1 : 0 }),
+        };
+        setLoader(true);
+        setTimeout(async () => {
+            await fetch("http://192.168.1.6:3000/key", requestOptions)
+                .then(setLock(lock ? false : true))
+                .then(setLoader(false));
+        }, 2500);
+    };
+    console.log(loader);
+
+    return loader ? (
+        <View style={{ width: 230, height: 300, justifyContent: "center" }}>
+            <ActivityIndicator color="black" size="large" />
+        </View>
+    ) : (
         <TouchableOpacity
-            onPress={() => setLock(lock ? false : true)}
+            onPress={post}
             style={[styles.lock, { borderColor: lock ? "#d84c4e" : "#209741" }]}
         >
             <Icon
