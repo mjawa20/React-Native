@@ -28,7 +28,7 @@ const KeyButton = () => {
     ) : (
         <TouchableOpacity
             onPress={post}
-            style={[styles.lock, { borderColor: lock ? "#d84c4e" : "#209741" }]}
+            style={[styles.lock, { borderColor: lock ? "#d84c4e" : "#205741" }]}
         >
             <Icon
                 name={lock ? "lock" : "lock-open-variant"}
